@@ -1,0 +1,53 @@
+{ "compressionlevel":-1,
+ "height":12,
+ "infinite":false,
+ "layers":[
+        {
+         "data":[12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12,
+            12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12,
+            12, 12, 12, 7, 12, 12, 7, 7, 7, 7, 12, 12, 7, 12, 12, 12,
+            12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 7, 12, 12, 12,
+            12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 7, 12, 12, 12,
+            12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12,
+            12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12,
+            12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12,
+            12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 7, 7, 7, 12, 12, 12,
+            12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12,
+            12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 7, 7, 7, 7, 12, 12,
+            12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12],
+         "height":12,
+         "id":1,
+         "name":"Tile Layer 1",
+         "opacity":1,
+         "type":"tilelayer",
+         "visible":true,
+         "width":16,
+         "x":0,
+         "y":0
+        }],
+ "nextlayerid":3,
+ "nextobjectid":1,
+ "orientation":"orthogonal",
+ "renderorder":"right-down",
+ "tiledversion":"1.10.2",
+ "tileheight":64,
+ "tilesets":[
+        {
+         "columns":4,
+         "firstgid":1,
+         "image":"C:\/Users\/M S I\/Downloads\/craftpix-net-729551-free-fields-tileset-pixel-art-for-tower-defense\/1 Tiles\/FieldsTileset.png",
+         "imageheight":256,
+         "imagewidth":256,
+         "margin":0,
+         "name":"tiles1",
+         "spacing":0,
+         "tilecount":16,
+         "tileheight":64,
+         "tilewidth":64
+        } 
+        ],
+ "tilewidth":64,
+ "type":"map",
+ "version":"1.10",
+ "width":16
+}

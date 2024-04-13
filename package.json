@@ -9,9 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "grid-engine": "^2.44.2",
+    "next": "13.5.6",
+    "phaser": "^3.80.1",
+    "phaser3spectorjs": "^0.0.8",
+    "prop-types": "^15.8.1",
     "react": "^18",
-    "react-dom": "^18",
-    "next": "13.5.6"
+    "react-dom": "^18"
   },
   "devDependencies": {
     "autoprefixer": "^10",
