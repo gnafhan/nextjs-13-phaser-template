@@ -1,36 +1,120 @@
-import { EventBus } from '../EventBus';
-import { Scene } from 'phaser';
+import { EventBus } from "../EventBus";
+import { Scene } from "phaser";
+import { debugDraw, resize, toggleFullScreen } from "../util/debug";
+import "../style/style.css";
 
-export class Game extends Scene
-{
-    camera: Phaser.Cameras.Scene2D.Camera;
-    background: Phaser.GameObjects.Image;
-    gameText: Phaser.GameObjects.Text;
+export class Game extends Scene {
+  camera: Phaser.Cameras.Scene2D.Camera;
+  background: Phaser.GameObjects.Image;
+  gameText: Phaser.GameObjects.Text;
 
-    constructor ()
-    {
-        super('Game');
+  private cursors!: Phaser.Types.Input.Keyboard.CursorKeys;
+  private faune!: Phaser.Physics.Arcade.Sprite;
+  constructor() {
+    super("game");
+  }
+
+  preload() {
+    this.cursors = this.input.keyboard.createCursorKeys();
+    resize(this);
+  }
+
+  create() {
+    window.addEventListener("resize", () => resize(this));
+    const map = this.make.tilemap({ key: "dungeon" });
+    const tilesMap = map.addTilesetImage("dungeon", "tiles", 16, 16, 1, 2);
+    map.createLayer("Ground", tilesMap);
+    const wallsLayer = map.createLayer("Wall", tilesMap);
+    wallsLayer.setCollisionByProperty({ collides: true });
+
+    // debugDraw(wallsLayer, this);
+
+    this.faune = this.physics.add.sprite(120, 120, "faune", "walk-down-3.png");
+    this.faune.body.setSize(this.faune.width * 0.5, this.faune.height * 0.8);
+    this.anims.create({
+      key: "faune-idle-down",
+      frames: [{ key: "faune", frame: "walk-down-3.png" }],
+    });
+    this.anims.create({
+      key: "faune-idle-up",
+      frames: [{ key: "faune", frame: "walk-up-3.png" }],
+    });
+    this.anims.create({
+      key: "faune-idle-side",
+      frames: [{ key: "faune", frame: "walk-side-3.png" }],
+    });
+
+    this.anims.create({
+      key: "faune-run-down",
+      frames: this.anims.generateFrameNames("faune", {
+        start: 1,
+        end: 8,
+        prefix: "run-down-",
+        suffix: ".png",
+      }),
+      repeat: -1,
+      frameRate: 15,
+    });
+
+    this.anims.create({
+      key: "faune-run-up",
+      frames: this.anims.generateFrameNames("faune", {
+        start: 1,
+        end: 8,
+        prefix: "run-up-",
+        suffix: ".png",
+      }),
+      repeat: -1,
+      frameRate: 15,
+    });
+
+    this.anims.create({
+      key: "faune-run-side",
+      frames: this.anims.generateFrameNames("faune", {
+        start: 1,
+        end: 8,
+        prefix: "run-side-",
+        suffix: ".png",
+      }),
+      repeat: -1,
+      frameRate: 15,
+    });
+
+    this.faune.anims.play("faune-idle-down");
+    this.physics.add.collider(this.faune, wallsLayer);
+    this.cameras.main.startFollow(this.faune, true);
+
+    document.querySelector(".play").addEventListener("click", () => {
+      toggleFullScreen();
+    });
+  }
+
+  update(time: number, delta: number): void {
+    if (!this.cursors || !this.faune) {
+      return;
     }
 
-    create ()
-    {
-        this.camera = this.cameras.main;
-        this.camera.setBackgroundColor(0x00ff00);
-
-        this.background = this.add.image(512, 384, 'background');
-        this.background.setAlpha(0.5);
-
-        this.gameText = this.add.text(512, 384, 'Make something fun!\nand share it with us:\nsupport@phaser.io', {
-            fontFamily: 'Arial Black', fontSize: 38, color: '#ffffff',
-            stroke: '#000000', strokeThickness: 8,
-            align: 'center'
-        }).setOrigin(0.5).setDepth(100);
-
-        EventBus.emit('current-scene-ready', this);
+    const speed = 100;
+    if (this.cursors.left?.isDown) {
+      this.faune.anims.play("faune-run-side", true);
+      this.faune.setVelocity(-speed, 0);
+      this.faune.scaleX = -1;
+      this.faune.body.offset.x = 24;
+    } else if (this.cursors.right?.isDown) {
+      this.faune.anims.play("faune-run-side", true);
+      this.faune.setVelocity(speed, 0);
+      this.faune.scaleX = 1;
+      this.faune.body.offset.x = 8;
+    } else if (this.cursors.up?.isDown) {
+      this.faune.anims.play("faune-run-up", true);
+      this.faune.setVelocity(0, -speed);
+    } else if (this.cursors.down?.isDown) {
+      this.faune.anims.play("faune-run-down", true);
+      this.faune.setVelocity(0, speed);
+    } else {
+      const part = this.faune.anims.currentAnim.key.split("-")[2];
+      this.faune.anims.play("faune-idle-" + part, true);
+      this.faune.setVelocity(0, 0);
     }
-
-    changeScene ()
-    {
-        this.scene.start('GameOver');
-    }
+  }
 }

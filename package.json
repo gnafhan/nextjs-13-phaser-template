@@ -15,7 +15,8 @@
     "phaser3spectorjs": "^0.0.8",
     "prop-types": "^15.8.1",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "tile-extruder": "^2.1.0"
   },
   "devDependencies": {
     "autoprefixer": "^10",
