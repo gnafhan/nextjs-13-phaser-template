@@ -11,11 +11,13 @@
   "dependencies": {
     "grid-engine": "^2.44.2",
     "next": "13.5.6",
+    "nextjs-godot": "^1.0.0",
     "phaser": "^3.80.1",
     "phaser3spectorjs": "^0.0.8",
     "prop-types": "^15.8.1",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-godot": "^1.0.0"
   },
   "devDependencies": {
     "autoprefixer": "^10",
